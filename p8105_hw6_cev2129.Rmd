@@ -17,9 +17,12 @@ homicide_data = read_csv("https://raw.githubusercontent.com/washingtonpost/data-
 homicide_data = homicide_data |>
   mutate(
     city_state = paste(city, state, sep = ", "),
-    solved = ifelse(disposition == "Closed by arrest" | disposition == "Closed without arrest", 1, 0)
+    solved = ifelse(disposition == "Closed by arrest" | disposition == "Closed without arrest", 1, 0),
+    victim_age = as.numeric(victim_age)
   ) |>
   filter(
     is.na(match(city_state, c("Dallas, TX", "Phoenix, AZ", "Kansas City, MO", "Tulsa, AL")))
   )
+
+
 ```

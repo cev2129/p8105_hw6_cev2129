@@ -390,11 +390,16 @@ library(mgcv)</code></pre>
 <pre class="r"><code>homicide_data = homicide_data |&gt;
   mutate(
     city_state = paste(city, state, sep = &quot;, &quot;),
-    solved = ifelse(disposition == &quot;Closed by arrest&quot; | disposition == &quot;Closed without arrest&quot;, 1, 0)
+    solved = ifelse(disposition == &quot;Closed by arrest&quot; | disposition == &quot;Closed without arrest&quot;, 1, 0),
+    victim_age = as.numeric(victim_age)
   ) |&gt;
   filter(
     is.na(match(city_state, c(&quot;Dallas, TX&quot;, &quot;Phoenix, AZ&quot;, &quot;Kansas City, MO&quot;, &quot;Tulsa, AL&quot;)))
   )</code></pre>
+<pre><code>## Warning: There was 1 warning in `mutate()`.
+## ℹ In argument: `victim_age = as.numeric(victim_age)`.
+## Caused by warning:
+## ! NAs introduced by coercion</code></pre>
 
 
 
