@@ -28,5 +28,11 @@ homicide_data = homicide_data |>
 
 ```{r}
 baltimore<- homicide_data |>
-  filter(city_state == "Baltimore, MD")
+  filter(city_state == "Baltimore, MD") 
+
+logit_model <- glm(
+  solved ~ victim_age + victim_sex + victim_race, 
+  data = baltimore, 
+  family = binomial()
+)
 ```

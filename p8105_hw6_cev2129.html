@@ -402,7 +402,13 @@ library(mgcv)</code></pre>
 ## Caused by warning:
 ## ! NAs introduced by coercion</code></pre>
 <pre class="r"><code>baltimore&lt;- homicide_data |&gt;
-  filter(city_state == &quot;Baltimore, MD&quot;)</code></pre>
+  filter(city_state == &quot;Baltimore, MD&quot;) 
+
+logit_model &lt;- glm(
+  solved ~ victim_age + victim_sex + victim_race, 
+  data = baltimore, 
+  family = binomial()
+)</code></pre>
 
 
 
