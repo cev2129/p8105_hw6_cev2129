@@ -394,7 +394,8 @@ library(mgcv)</code></pre>
     victim_age = as.numeric(victim_age)
   ) |&gt;
   filter(
-    is.na(match(city_state, c(&quot;Dallas, TX&quot;, &quot;Phoenix, AZ&quot;, &quot;Kansas City, MO&quot;, &quot;Tulsa, AL&quot;)))
+    is.na(match(city_state, c(&quot;Dallas, TX&quot;, &quot;Phoenix, AZ&quot;, &quot;Kansas City, MO&quot;, &quot;Tulsa, AL&quot;))) &amp;
+      (victim_race == &quot;Black&quot; | victim_race == &quot;White&quot;)
   )</code></pre>
 <pre><code>## Warning: There was 1 warning in `mutate()`.
 ## ℹ In argument: `victim_age = as.numeric(victim_age)`.

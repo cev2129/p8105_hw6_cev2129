@@ -21,12 +21,12 @@ homicide_data = homicide_data |>
     victim_age = as.numeric(victim_age)
   ) |>
   filter(
-    is.na(match(city_state, c("Dallas, TX", "Phoenix, AZ", "Kansas City, MO", "Tulsa, AL")))
+    is.na(match(city_state, c("Dallas, TX", "Phoenix, AZ", "Kansas City, MO", "Tulsa, AL"))) &
+      (victim_race == "Black" | victim_race == "White")
   )
 ```
 
 ```{r}
 baltimore<- homicide_data |>
   filter(city_state == "Baltimore, MD")
-
 ```
