@@ -408,7 +408,38 @@ logit_model &lt;- glm(
   solved ~ victim_age + victim_sex + victim_race, 
   data = baltimore, 
   family = binomial()
-)</code></pre>
+)
+
+ logit_model|&gt;
+  broom::tidy(conf.int = TRUE, conf.level = 0.95) |&gt;  
+  mutate(OR = exp(estimate),                         
+         conf.low = exp(conf.low),                    
+         conf.high = exp(conf.high)) |&gt;              
+  filter(term == &quot;victim_sexMale&quot;) |&gt;                      
+  select(term, log_OR = estimate, OR, conf.low, conf.high, p.value) |&gt;
+  knitr::kable(digits = 3)    </code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">log_OR</th>
+<th align="right">OR</th>
+<th align="right">conf.low</th>
+<th align="right">conf.high</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">victim_sexMale</td>
+<td align="right">-1.037</td>
+<td align="right">0.355</td>
+<td align="right">0.267</td>
+<td align="right">0.468</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 
 
 

@@ -35,4 +35,13 @@ logit_model <- glm(
   data = baltimore, 
   family = binomial()
 )
+
+ logit_model|>
+  broom::tidy(conf.int = TRUE, conf.level = 0.95) |>  
+  mutate(OR = exp(estimate),                         
+         conf.low = exp(conf.low),                    
+         conf.high = exp(conf.high)) |>              
+  filter(term == "victim_sexMale") |>                      
+  select(term, log_OR = estimate, OR, conf.low, conf.high, p.value) |>
+  knitr::kable(digits = 3)    
 ```
