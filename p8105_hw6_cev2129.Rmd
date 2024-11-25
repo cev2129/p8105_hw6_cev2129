@@ -23,6 +23,10 @@ homicide_data = homicide_data |>
   filter(
     is.na(match(city_state, c("Dallas, TX", "Phoenix, AZ", "Kansas City, MO", "Tulsa, AL")))
   )
+```
 
+```{r}
+baltimore<- homicide_data |>
+  filter(city_state == "Baltimore, MD")
 
 ```
