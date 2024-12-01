@@ -99,3 +99,7 @@ bwt_data <- bwt_data |>
 
 sum(is.na(bwt_data))
 ```
+```{r}
+bwt_model <- bwt_data |>
+  lm(bwt ~ babysex + bhead + blength + gaweeks + wtgain + momage + mheight + ppbmi + smoken + malform, data = _)
+```
