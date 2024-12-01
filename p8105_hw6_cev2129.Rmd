@@ -67,4 +67,16 @@ city_odds <- homicide_data |>
 city_arranged <- city_odds |>
   arrange(OR) |> 
   mutate(city_state = factor(city_state, levels = city_state))
+
+ggplot(city_arranged, aes(x = city_state, y = OR)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0.2) +
+  coord_flip() +
+  labs(
+    title = "Estimated Odds Ratios for Solving Homicides by City",
+    x = "City",
+    y = "Odds Ratio (95% CI)"
+  ) +
+  theme_minimal()+
+  theme(axis.text.y = element_text(size = 5))
 ```
