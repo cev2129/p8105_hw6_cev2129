@@ -463,6 +463,9 @@ logit_model &lt;- glm(
 ## Caused by warning:
 ## ! glm.fit: fitted probabilities numerically 0 or 1 occurred
 ## ℹ Run `dplyr::last_dplyr_warnings()` to see the 42 remaining warnings.</code></pre>
+<pre class="r"><code>city_arranged &lt;- city_odds |&gt;
+  arrange(OR) |&gt; 
+  mutate(city_state = factor(city_state, levels = city_state))</code></pre>
 
 
 

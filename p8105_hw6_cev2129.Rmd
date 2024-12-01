@@ -63,4 +63,8 @@ city_odds <- homicide_data |>
   ) |>
   select(city_state, OR, conf.low, conf.high, p.value)
 ```
-
+```{r}
+city_arranged <- city_odds |>
+  arrange(OR) |> 
+  mutate(city_state = factor(city_state, levels = city_state))
+```
