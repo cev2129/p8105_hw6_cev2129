@@ -440,6 +440,29 @@ logit_model &lt;- glm(
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>city_odds &lt;- homicide_data |&gt;
+  group_by(city_state) |&gt;
+  nest() |&gt; 
+  mutate(
+    model = purrr::map(data, ~ glm(solved ~ victim_age + victim_sex + victim_race, data = ., family = binomial())),
+    tidy_model = purrr::map(model, ~ broom::tidy(., conf.int = TRUE))
+  ) |&gt; 
+  unnest(tidy_model) |&gt; 
+  filter(term == &quot;victim_sexMale&quot;) |&gt; 
+  mutate(
+    OR = exp(estimate), 
+    conf.low = exp(conf.low), 
+    conf.high = exp(conf.high)
+  ) |&gt;
+  select(city_state, OR, conf.low, conf.high, p.value)</code></pre>
+<pre><code>## Warning: There were 43 warnings in `mutate()`.
+## The first warning was:
+## ℹ In argument: `tidy_model = purrr::map(model, ~broom::tidy(., conf.int =
+##   TRUE))`.
+## ℹ In group 1: `city_state = &quot;Albuquerque, NM&quot;`.
+## Caused by warning:
+## ! glm.fit: fitted probabilities numerically 0 or 1 occurred
+## ℹ Run `dplyr::last_dplyr_warnings()` to see the 42 remaining warnings.</code></pre>
 
 
 

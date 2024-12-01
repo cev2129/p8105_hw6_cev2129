@@ -45,3 +45,22 @@ logit_model <- glm(
   select(term, log_OR = estimate, OR, conf.low, conf.high, p.value) |>
   knitr::kable(digits = 3)    
 ```
+
+```{r}
+city_odds <- homicide_data |>
+  group_by(city_state) |>
+  nest() |> 
+  mutate(
+    model = purrr::map(data, ~ glm(solved ~ victim_age + victim_sex + victim_race, data = ., family = binomial())),
+    tidy_model = purrr::map(model, ~ broom::tidy(., conf.int = TRUE))
+  ) |> 
+  unnest(tidy_model) |> 
+  filter(term == "victim_sexMale") |> 
+  mutate(
+    OR = exp(estimate), 
+    conf.low = exp(conf.low), 
+    conf.high = exp(conf.high)
+  ) |>
+  select(city_state, OR, conf.low, conf.high, p.value)
+```
+
