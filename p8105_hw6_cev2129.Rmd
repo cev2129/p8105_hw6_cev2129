@@ -87,7 +87,7 @@ This plot reflects the odds of solving homicides for male victims compared to fe
 ```{r}
 bwt_data = read_csv("https://p8105.com/data/birthweight.csv")
 
-bwt_data <- bwt_data |>
+bwt_data = bwt_data |>
   mutate(
     babysex = factor(babysex, levels = c(1, 2), labels = c("Male", "Female")),
     frace = factor(frace, levels = c(1, 2, 3, 4, 8, 9), 
@@ -99,7 +99,23 @@ bwt_data <- bwt_data |>
 
 sum(is.na(bwt_data))
 ```
+
+
 ```{r}
-bwt_model <- bwt_data |>
-  lm(bwt ~ babysex + bhead + blength + gaweeks + wtgain + momage + mheight + ppbmi + smoken + malform, data = _)
+bwt_model =  bwt_data |>
+  lm(bwt ~ babysex + bhead + blength + gaweeks + wtgain + momage + mheight + ppbmi + smoken + malform, data = _) 
+
+bwt_plot <- bwt_data |>
+  modelr::add_predictions(bwt_model) |>
+  modelr::add_residuals(bwt_model)
+
+ggplot(bwt_plot, aes(x = pred, y = resid)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "loess", se = FALSE, color = "blue") +
+  labs(
+    title = "Residuals vs Fitted Values",
+    x = "Fitted Values",
+    y = "Residuals"
+  ) +
+  theme_minimal()
 ```
