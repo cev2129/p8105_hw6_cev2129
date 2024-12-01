@@ -80,3 +80,10 @@ ggplot(city_arranged, aes(x = city_state, y = OR)) +
   theme_minimal()+
   theme(axis.text.y = element_text(size = 5))
 ```
+This plot reflects the odds of solving homicides for male victims compared to female victims. Only four cities reflect an odds ratio greater than one, with the. majority of the odds ratios lying below one. 
+
+
+##Problem 3
+```{r}
+bwt_data = read_csv("https://p8105.com/data/birthweight.csv")
+```
