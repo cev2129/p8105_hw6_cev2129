@@ -86,4 +86,16 @@ This plot reflects the odds of solving homicides for male victims compared to fe
 ##Problem 3
 ```{r}
 bwt_data = read_csv("https://p8105.com/data/birthweight.csv")
+
+bwt_data <- bwt_data |>
+  mutate(
+    babysex = factor(babysex, levels = c(1, 2), labels = c("Male", "Female")),
+    frace = factor(frace, levels = c(1, 2, 3, 4, 8, 9), 
+                   labels = c("White", "Black", "Asian", "Puerto Rican", "Other", "Unknown")),
+    malform = factor(malform, levels = c(0, 1), labels = c("Absent", "Present")),
+    mrace = factor(mrace, levels = c(1, 2, 3, 4, 8), 
+                   labels = c("White", "Black", "Asian", "Puerto Rican", "Other"))
+  )
+
+sum(is.na(bwt_data))
 ```

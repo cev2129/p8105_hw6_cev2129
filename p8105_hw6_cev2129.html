@@ -492,6 +492,18 @@ one.</p>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>bwt_data &lt;- bwt_data |&gt;
+  mutate(
+    babysex = factor(babysex, levels = c(1, 2), labels = c(&quot;Male&quot;, &quot;Female&quot;)),
+    frace = factor(frace, levels = c(1, 2, 3, 4, 8, 9), 
+                   labels = c(&quot;White&quot;, &quot;Black&quot;, &quot;Asian&quot;, &quot;Puerto Rican&quot;, &quot;Other&quot;, &quot;Unknown&quot;)),
+    malform = factor(malform, levels = c(0, 1), labels = c(&quot;Absent&quot;, &quot;Present&quot;)),
+    mrace = factor(mrace, levels = c(1, 2, 3, 4, 8), 
+                   labels = c(&quot;White&quot;, &quot;Black&quot;, &quot;Asian&quot;, &quot;Puerto Rican&quot;, &quot;Other&quot;))
+  )
+
+sum(is.na(bwt_data))</code></pre>
+<pre><code>## [1] 0</code></pre>
 
 
 
