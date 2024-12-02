@@ -124,5 +124,14 @@ ggplot(bwt_plot, aes(x = pred, y = resid)) +
   theme_minimal()
 ```
 
+```{r}
+#Model 1: Birth and gestational age as predictors (main effects only)
+model1 <- bwt_data |>
+  lm(bwt ~ blength + gaweeks, data = _)
 
+#Model 2:Head circumference, length, sex, and all interactions (including three-way interaction)
+model2 <- bwt_data |>
+  lm(bwt ~ bhead * blength * babysex, data = _)
+
+```
 
