@@ -492,7 +492,7 @@ one.</p>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>bwt_data &lt;- bwt_data |&gt;
+<pre class="r"><code>bwt_data = bwt_data |&gt;
   mutate(
     babysex = factor(babysex, levels = c(1, 2), labels = c(&quot;Male&quot;, &quot;Female&quot;)),
     frace = factor(frace, levels = c(1, 2, 3, 4, 8, 9), 
@@ -504,8 +504,12 @@ one.</p>
 
 sum(is.na(bwt_data))</code></pre>
 <pre><code>## [1] 0</code></pre>
-<pre class="r"><code>bwt_model &lt;- bwt_data |&gt;
-  lm(bwt ~ babysex + bhead + blength + gaweeks + wtgain + momage + mheight + ppbmi + smoken + malform, data = _)</code></pre>
+<pre class="r"><code>bwt_model =  bwt_data |&gt;
+  lm(bwt ~ babysex + gaweeks + momage + ppbmi + smoken + malform, data = _) 
+
+bwt_plot &lt;- bwt_data |&gt;
+  modelr::add_predictions(bwt_model) |&gt;
+  modelr::add_residuals(bwt_model)</code></pre>
 
 
 
