@@ -126,12 +126,24 @@ ggplot(bwt_plot, aes(x = pred, y = resid)) +
 
 ```{r}
 #Model 1: Birth and gestational age as predictors (main effects only)
-model1 <- bwt_data |>
+model1 = bwt_data |>
   lm(bwt ~ blength + gaweeks, data = _)
 
 #Model 2:Head circumference, length, sex, and all interactions (including three-way interaction)
-model2 <- bwt_data |>
+model2 = bwt_data |>
   lm(bwt ~ bhead * blength * babysex, data = _)
+
+cv_bwt_model = function(model, data, folds = 10) {
+  folds =  modelr::crossv_mc(data, size = nrow(data), times = folds)
+  rmse_results = purrr::map_dbl(folds$splits, function(split) {
+    train_data = analysis(split)
+    test_data = assessment(split)
+    fit = lm(model$call$formula, data = train_data)
+    preds = predict(fit, newdata = test_data)
+    sqrt(mean((preds - test_data$bwt)^2))
+  })
+  mean(rmse_results)
+}
 
 ```
 
