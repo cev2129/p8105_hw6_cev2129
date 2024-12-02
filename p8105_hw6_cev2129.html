@@ -510,6 +510,12 @@ sum(is.na(bwt_data))</code></pre>
 bwt_plot &lt;- bwt_data |&gt;
   modelr::add_predictions(bwt_model) |&gt;
   modelr::add_residuals(bwt_model)</code></pre>
+<p>bwt(y)= -6981.842 + 31.426(babysex) + 12.903(gaweeks) + 6.407(momage)
++ 5.939(ppbmi) - 2.624(smoken) + 26.433(malformPresent)<br />
+In this regression model I included baby’s gender, gestational age,
+mothers age, mother’s pre-pregnancy bmi, daily average of cigarettes
+smoked, and malformations present as predictors as I hypothesized that
+these factors would affect a baby’s birthweight.</p>
 
 
 
