@@ -129,5 +129,29 @@ ggplot(bwt_plot, aes(x = pred, y = resid)) +
 model1  = lm(bwt~ blength + gaweeks, data = bwt_data)
 model2 = birthwt_model3 = lm(bwt~ bhead + blength + babysex + bhead*blength + blength*babysex + bhead* babysex
 + bhead*blength*babysex,data = bwt_data)
+crossval = crossv_mc(bwt_data, 100)
+
+
+crossval = crossval |>
+mutate(
+train = map(train, as_tibble),
+test = map(test, as_tibble)) |> 
+mutate(
+)
+
+rmse = 
+  crossval |> 
+  mutate(
+    mod1 = map(train, ~model1),
+    mod2 = map(train, ~model2),
+    bwtmodel = map(train, ~bwt_model)
+  ) |> 
+  mutate(
+    rmse_mod1 = map2_dbl(mod1, test, \(mod, df) rmse(model = mod, data = df)),
+    rmse_mod2 = map2_dbl(mod2, test, \(mod, df) rmse(model = mod, data = df)),
+    rmse_bwt = map2_dbl(bwtmodel, test, \(mod, df) rmse(model = mod, data = df))
+  )
 ```
+
+
 
